@@ -9,7 +9,12 @@ namespace Contak.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        private readonly MockContakRepo _repository = new MockContakRepo();
+        private readonly IContakRepo _repository;
+
+        public ContactsController(IContakRepo repository)
+        {
+            _repository = repository;
+        }
         //GET api/contacts
         [HttpGet]
         public ActionResult<IEnumerable<Contact>> GetAllContacts()
