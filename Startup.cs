@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Contak.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace Contak
             (Configuration.GetConnectionString("ContakConnection")));
             services.AddControllers();
             
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddScoped<IContakRepo, MockContakRepo>();
             services.AddScoped<IContakRepo, SqlContakRepo>();
         }
