@@ -12,6 +12,12 @@ namespace Contak.Data
         {
             _context = context;
         }
+
+        public void CreateContact(Contact contact)
+        {
+            _context.Add(contact);
+        }
+
         public IEnumerable<Contact> GetAllContacts()
         {
             return _context.Contacts.ToList();
@@ -20,6 +26,16 @@ namespace Contak.Data
         public Contact GetContactById(int id)
         {
             return _context.Contacts.FirstOrDefault(ct => ct.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            //Nothing
         }
     }
 }

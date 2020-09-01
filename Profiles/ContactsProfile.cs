@@ -9,6 +9,8 @@ namespace Contak.Profiles
         public ContactsProfile()
         {
             CreateMap<Contact, ContactReadDto>();
+            CreateMap<ContactCreateDto, Contact>();
+            CreateMap<ContactUpdateDto, Contact>();
         }        
     }
 }

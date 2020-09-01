@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using Contak.Data;
@@ -29,7 +30,7 @@ namespace Contak.Controllers
         }
 
         //GET api/contacts/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetContactById")]
         public ActionResult <ContactReadDto> GetContactById(int id)
         {
             var contactItem = _repository.GetContactById(id);
@@ -38,6 +39,29 @@ namespace Contak.Controllers
                 return Ok(_mapper.Map<ContactReadDto>(contactItem));
             }
             return NotFound();            
+        }
+
+        //POST api/contacts
+        [HttpPost]
+        public ActionResult <ContactReadDto> CreateContact(ContactCreateDto contactCreateDto)
+        {
+            var contactModel = _mapper.Map<Contact>(contactCreateDto);
+            _repository.CreateContact(contactModel);
+            _repository.SaveChanges();
+
+            return CreatedAtRoute(nameof(GetContactById), new {Id = contactModel.Id}, _mapper.Map<ContactReadDto>(contactModel));
+        }
+
+        //PUT api/contact/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateContact(int id, ContactUpdateDto contactUpdateDto)
+        {
+            var contactModelFromRepo = _repository.GetContactById(id);
+            if(contactModelFromRepo == null)
+                return NotFound();
+            _mapper.Map(contactUpdateDto, contactModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
         }
     }
 }

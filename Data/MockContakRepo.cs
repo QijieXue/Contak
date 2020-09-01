@@ -5,6 +5,11 @@ namespace Contak.Data
 {
     public class MockContakRepo : IContakRepo
     {
+        public void CreateContact(Contact contact)
+        {
+            
+        }
+
         public IEnumerable<Contact> GetAllContacts()
         {
             var contacts = new List<Contact>
@@ -52,6 +57,16 @@ namespace Contak.Data
                 Phone = "1220003333",
                 Description = "Family"
             };
+        }
+
+        public bool SaveChanges()
+        {
+            return false;
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            //Nothing
         }
     }
 }

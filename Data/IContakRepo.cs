@@ -7,5 +7,8 @@ namespace Contak.Data
     {
         IEnumerable <Contact> GetAllContacts();
         Contact GetContactById(int id);
+        void CreateContact(Contact contact);
+        bool SaveChanges();
+        void UpdateContact(Contact contact);
     }
 }
